@@ -30,6 +30,9 @@ export const GlobalStyle = () => {
           margin: 0px;
           box-sizing: border-box;
         }
+        .linkBar{
+          margin-right: 30px;
+        }
         code {
             font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
              monospace;

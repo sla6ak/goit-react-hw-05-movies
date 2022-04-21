@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import { findPopularFilms } from 'utilits/fetchAPI';
-import { BoxFilms, FilmICard, Poster, FilmTitle } from 'components/MoviesPage/MoviesPage.styled';
+import { BoxFilms } from 'components/MoviesPage/MoviesPage.styled';
 import { InfoPages } from './HomePage.styled';
-const imgBaseUrl = 'https://image.tmdb.org/t/p/w300';
+import FilmCard from 'components/FilmCard/FilmCard';
 
 const HomePage = props => {
   const [popular, setPopular] = useState([])
@@ -14,26 +14,17 @@ const HomePage = props => {
     })
   }, [])
 
-  // просто проверка API
-  // useEffect(() => {
-  //     if(popular.length === 0){return}
-  //     console.log(popular);
-  // }, [popular])
-
   return (
     <>
       <InfoPages>Popular films of week</InfoPages>
 
-        <BoxFilms>
+        {popular.length > 0 && <BoxFilms>
         {popular.map(film => {
           return (
-          <FilmICard key={film.id}>
-            <Poster src={`${imgBaseUrl}${film.poster_path}`} />
-            <FilmTitle>{film.title }</FilmTitle>
-          </FilmICard>
+            <FilmCard key={film.id} id={film.id} poster_path={film.poster_path} title={ film.title}/>
             );
           })}
-        </BoxFilms>
+        </BoxFilms>}
     </>
   )
 }

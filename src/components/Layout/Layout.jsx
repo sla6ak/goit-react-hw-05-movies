@@ -5,7 +5,7 @@ import { Header, Conteiner, Content, Pages, Footer } from './Layout.styled'
 const linkActiv = (active) => {
   const baseS = { mardginleft: '50px' }
     if (active.isActive) {
-        return { color: "#059", ...baseS} 
+        return { color: "#48a4f0", ...baseS} 
     }
     return { color: "#212121", ...baseS}
 }
@@ -15,7 +15,7 @@ const Layout = () => {
     <Pages>
       <Header>
         <Conteiner>
-          <NavLink style={linkActiv} to='/'>Houme</NavLink>
+          <NavLink className='linkBar' style={linkActiv} to='/'>Houme</NavLink>
           <NavLink style={linkActiv} to='/movies'>Movies</NavLink>
         </Conteiner>
       </Header>

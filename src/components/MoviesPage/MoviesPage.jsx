@@ -1,9 +1,9 @@
 
 import { AiOutlineSearch } from 'react-icons/ai';
-import { SerchForm, SerchButton, InputWord, BoxFilms, FilmICard, Poster, FilmTitle } from './MoviesPage.styled';
+import { SerchForm, SerchButton, InputWord, BoxFilms } from './MoviesPage.styled';
 import { findFilmsTitle } from 'utilits/fetchAPI';
 import { useState, useEffect } from "react";
-const imgBaseUrl = 'https://image.tmdb.org/t/p/w300';
+import FilmCard from 'components/FilmCard/FilmCard';
 
 const MoviesPage = () => {
   const [searchWord, SetSearchWord] = useState('')
@@ -25,7 +25,6 @@ const MoviesPage = () => {
     // просто проверка API
   useEffect(() => {
       if(arreyFilms.length === 0){return}
-      console.log(arreyFilms);
   }, [arreyFilms])
 
   return (
@@ -44,17 +43,13 @@ const MoviesPage = () => {
         />
       </SerchForm>
 
-    <BoxFilms>
+      {arreyFilms.length > 0 && <BoxFilms>
         {arreyFilms.map(film => {
-            console.log(film);
-          return (
-          <FilmICard key={film.id}>
-            <Poster src={`${imgBaseUrl}${film.poster_path}`} />
-            <FilmTitle>{film.title }</FilmTitle>
-          </FilmICard>
-            );
-          })}
-        </BoxFilms>
+        return (
+          <FilmCard key={film.id} id={film.id} poster_path={film.poster_path} title={ film.title}/>
+          );
+        })}
+      </BoxFilms>}
     </>
   )
 }
