@@ -2,7 +2,8 @@
 import { AiOutlineSearch } from 'react-icons/ai';
 import { SerchForm, SerchButton, InputWord, BoxFilms, FilmICard, Poster, FilmTitle } from './MoviesPage.styled';
 import { findFilmsTitle } from 'utilits/fetchAPI';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+const imgBaseUrl = 'https://image.tmdb.org/t/p/w300';
 
 const MoviesPage = () => {
   const [searchWord, SetSearchWord] = useState('')
@@ -14,9 +15,18 @@ const MoviesPage = () => {
 
   const formSubmit = event => {
     event.preventDefault();
-    SetArreyFilms(findFilmsTitle(searchWord));
+    const queryW = searchWord.toLowerCase().trim()
+    if (queryW === '') {return};
+    findFilmsTitle(queryW).then((r)=>{
+      SetArreyFilms(r.results);
+    })
   };
 
+    // просто проверка API
+  useEffect(() => {
+      if(arreyFilms.length === 0){return}
+      console.log(arreyFilms);
+  }, [arreyFilms])
 
   return (
     <>
@@ -34,17 +44,17 @@ const MoviesPage = () => {
         />
       </SerchForm>
 
-      <BoxFilms>
+    <BoxFilms>
         {arreyFilms.map(film => {
+            console.log(film);
           return (
-            <FilmICard key={film.id}>
-              <Poster src={film.src} />
-              <FilmTitle>{film.title }</FilmTitle>
-
-            </FilmICard>
-          );
-        })}
-      </BoxFilms>
+          <FilmICard key={film.id}>
+            <Poster src={`${imgBaseUrl}${film.poster_path}`} />
+            <FilmTitle>{film.title }</FilmTitle>
+          </FilmICard>
+            );
+          })}
+        </BoxFilms>
     </>
   )
 }
