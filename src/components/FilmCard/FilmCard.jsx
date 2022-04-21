@@ -5,10 +5,9 @@ const imgBaseUrl = 'https://image.tmdb.org/t/p/w300';
 
 
 const FilmCard = ({ title, poster_path, id }) => {
-    const li = 'movies/:movieId/' + id
     return (
       <CardFilm>
-         <Link to={li}>
+         <Link to={'movies/' + id}>
            <Poster src={`${imgBaseUrl}${poster_path}`} />
            <FilmTitle>{title}</FilmTitle>
          </Link> </CardFilm>

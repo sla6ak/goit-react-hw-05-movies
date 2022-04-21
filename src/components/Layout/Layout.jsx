@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { Header, Conteiner, Content, Pages, Footer } from './Layout.styled'
+import { Header, Conteiner, Content, Pages, Footer, DateWork } from './Layout.styled'
 
 const linkActiv = (active) => {
   const baseS = { mardginleft: '50px' }
@@ -26,7 +26,7 @@ const Layout = () => {
       </Content>
       <Footer>
         <Conteiner>
-          {Date()}
+          <DateWork>Made during the WAR 2022</DateWork>
         </Conteiner>
       </Footer>
       </Pages>

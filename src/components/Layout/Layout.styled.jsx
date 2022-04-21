@@ -14,6 +14,7 @@ width: 900px;
 `
 export const Content = styled.main`
 flex-grow: 3;
+padding: 20px 15px;
 `
 export const Pages = styled.div`
 display: flex;
@@ -27,4 +28,12 @@ display: flex;
 min-height: 60px;
 border-top: solid 2px #28282b;
 align-items: center;
+`
+
+export const DateWork = styled.footer`
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+font-weight: 500;
 `

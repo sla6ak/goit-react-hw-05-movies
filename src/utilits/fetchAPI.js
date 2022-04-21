@@ -25,11 +25,11 @@ export const findFilmsTitle = async (searchWord) => {
     return r
 }
 
-export const findFilmsInfo = async () => {
+export const findFilmsInfo = async (id) => {
     const meta = new URLSearchParams({
-    api_key: KEY,
+        api_key: KEY,
     });
-    const f = await fetch(`${baseUrl}?${meta}`)
+    const f = await fetch(`${baseUrl}movie/${id}?${meta}`)
     const r = await f.json()
     return r
 }
