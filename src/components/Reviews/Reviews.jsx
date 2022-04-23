@@ -4,7 +4,6 @@ import { useOutletContext } from 'react-router-dom'
 const Reviews = props => {
   const [filmInfo] = useOutletContext()
   const reviews = filmInfo.reviews.results
-  console.log(reviews)
 
   return (
     <>
