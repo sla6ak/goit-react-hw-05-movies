@@ -3,6 +3,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { SerchForm, SerchButton, InputWord, BoxFilms } from './MoviesPage.styled';
 import { findFilmsTitle } from 'utilits/fetchAPI';
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 import FilmCard from 'components/FilmCard/FilmCard';
 
 const MoviesPage = () => {
@@ -24,7 +25,8 @@ const MoviesPage = () => {
 
     // просто проверка API
   useEffect(() => {
-      if(arreyFilms.length === 0){return}
+    if (arreyFilms.length === 0) { return }
+  //   console.log(arreyFilms)
   }, [arreyFilms])
 
   return (
@@ -46,7 +48,9 @@ const MoviesPage = () => {
       {arreyFilms.length > 0 && <BoxFilms>
         {arreyFilms.map(film => {
         return (
-          <FilmCard key={film.id} id={film.id} poster_path={film.poster_path} title={ film.title}/>
+          <Link key={film.id} to={''+film.id}>
+              <FilmCard poster_path={film.poster_path} title={film.title} />
+            </Link>
           );
         })}
       </BoxFilms>}

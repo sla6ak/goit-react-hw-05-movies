@@ -29,7 +29,7 @@ export const findFilmsInfo = async (id) => {
     const meta = new URLSearchParams({
         api_key: KEY,
     });
-    const f = await fetch(`${baseUrl}movie/${id}?${meta}`)
+    const f = await fetch(`${baseUrl}movie/${id}?${meta}&append_to_response=credits,reviews`)
     const r = await f.json()
     return r
 }

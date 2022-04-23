@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import { findPopularFilms } from 'utilits/fetchAPI';
 import { BoxFilms } from 'components/MoviesPage/MoviesPage.styled';
@@ -21,7 +22,10 @@ const HomePage = props => {
         {popular.length > 0 && <BoxFilms>
         {popular.map(film => {
           return (
-            <FilmCard key={film.id} id={film.id} poster_path={film.poster_path} title={ film.title}/>
+            
+         <Link key={film.id} to={'movies/' + film.id}>
+              <FilmCard poster_path={film.poster_path} title={film.title} />
+            </Link>
             );
           })}
         </BoxFilms>}
