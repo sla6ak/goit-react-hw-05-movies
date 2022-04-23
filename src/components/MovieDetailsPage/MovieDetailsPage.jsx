@@ -31,7 +31,7 @@ const MovieDetailsPage = () => {
       <Button onClick={()=>navig(-1)} variant='contained' sx={{mb: '10px'}}>Back</Button>
       <TitleFilm>{filmInfo.original_title}</TitleFilm>
       <BoxPoster>
-        {filmInfo.poster_path?<BigPoster src={imgBaseUrl + filmInfo.poster_path} alt="" />:<BigPoster src='../../img/mf-no-poster-available-v2.png' alt="" />}
+        {filmInfo.poster_path ? <BigPoster src={imgBaseUrl + filmInfo.poster_path} alt="" /> : <BigPoster src='https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg' alt="" />}
         <div>
           <Overview> <h3>Overview: </h3>{filmInfo.overview}</Overview>
           <Overview><h3>Release date: </h3>{filmInfo.release_date}</Overview>

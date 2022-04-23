@@ -6,7 +6,7 @@ const imgBaseUrl = 'https://image.tmdb.org/t/p/w300';
 const FilmCard = ({ title, poster_path }) => {
     return (
       <CardFilm>
-           <Poster src={`${imgBaseUrl}${poster_path}`} />
+          {poster_path ? <Poster src={`${imgBaseUrl}${poster_path}`} />:<Poster src='https://www.jakartaplayers.org/uploads/1/2/5/5/12551960/2297419_orig.jpg' /> }
         <FilmTitle>{title}</FilmTitle>
       </CardFilm>
   )
