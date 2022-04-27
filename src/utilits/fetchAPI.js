@@ -13,11 +13,13 @@ export const findPopularFilms = async () => {
     return r
 }
 
-export const findFilmsTitle = async (searchWord) => {
+export const findFilmsTitle = async (searchQuery, search) => {
+    if (!searchQuery) return;
+    const query = new URLSearchParams(search).get('query') ?? ''; // если данные формы утеряны то поисковое слово пустая строка
     const meta = new URLSearchParams({
         api_key: KEY,
         page: 1,
-        query: searchWord,
+        query, // тут будет полученный квери(слово поиска) из формсабмита который прилетает в переменной search
         include_adult: false,
     });
     const f = await fetch(`${baseUrl}search/movie?${meta}`)

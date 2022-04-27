@@ -3,31 +3,43 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { SerchForm, SerchButton, InputWord, BoxFilms } from './MoviesPage.styled';
 import { findFilmsTitle } from 'utilits/fetchAPI';
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams,  useLocation } from 'react-router-dom' //  в линк мы должны передать объект стейт чтоб там была ссылка для возврата обратно
 import FilmCard from 'components/FilmCard/FilmCard';
 
 const MoviesPage = () => {
-  const [searchWord, SetSearchWord] = useState('')
   const [arreyFilms, SetArreyFilms] = useState([])
+  let [searchParams, setSearchParams] = useSearchParams(); // СОЗДАЕМ ОБЪЕКТ ПРИ ВВОДЕ ПОИКОВОГО СЛОВА
+  const location = useLocation();
 
+  // Тут следим за вводом поискового слова в инпут сохраняем тут же в параметры для запроса
   const onInpurWord = e => {
-    SetSearchWord(e.currentTarget.value.trim());
+    if (e.target.value === '') {
+      setSearchParams({}); // если поисковое слово пусто то и параметры поиска пустые
+      return;
+    }
+    setSearchParams({ query: e.target.value.toLowerCase().trim() }); // QERY в поисковом параметре мы СОЗДАЕМ тут и там просто лежит слово
   };
 
-  const formSubmit = event => {
-    event.preventDefault();
-    const queryW = searchWord.toLowerCase().trim()
-    if (queryW === '') {return};
-    findFilmsTitle(queryW).then((r)=>{
+  //вынесли запрос для переиспользования в сабмите и юзэффекте
+  const eventNo = () => {
+     const search = location.search;
+    const searchQuery = searchParams.get('query');
+    findFilmsTitle(searchQuery, search).then((r)=>{
       SetArreyFilms(r.results);
     })
+  }
+
+  // тут обрабатываем данные формы и получаем массив фильмов
+  const formSubmit = event => {
+    event.preventDefault();
+    eventNo()
   };
 
-    // просто проверка API
+    // отправляем данные запроса если нас вернуло и в памяти есть поисковое слово
   useEffect(() => {
-    if (arreyFilms.length === 0) { return }
-  //   console.log(arreyFilms)
-  }, [arreyFilms])
+    eventNo()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -41,14 +53,15 @@ const MoviesPage = () => {
           autoFocus
           placeholder="Search images and photos"
           onInput={onInpurWord}
-          value={searchWord}
+          value={searchParams.get('query') === null ? '' : searchParams.get('query')}
         />
       </SerchForm>
 
       {arreyFilms.length > 0 && <BoxFilms>
         {arreyFilms.map(film => {
         return (
-          <Link key={film.id} to={''+film.id}>
+          <Link key={film.id} to={''+film.id} 
+                  state={{ from: location }}>
               <FilmCard poster_path={film.poster_path} title={film.title} />
             </Link>
           );
